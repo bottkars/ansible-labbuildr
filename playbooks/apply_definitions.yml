@@ -1,0 +1,16 @@
+---
+
+- name: Maintainance Tesks on SCOM
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+   - name: Apply Definition Updates
+     win_updates: category_names=DefinitionUpdates
+        
+     register: apply_definition_updates 
+
+   - debug: msg="{{apply_definition_updates}}"
+...
+

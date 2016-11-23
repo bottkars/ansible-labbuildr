@@ -1,0 +1,33 @@
+---
+
+- name: Applying Maintainance Update Task
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+   - name: Update Windows All Updates
+     win_updates: 
+       category_names:
+        - Application
+        - Connectors
+        - CriticalUpdates
+        - DefinitionUpdates
+        - DeveloperKits
+        - FeaturePacks
+        - Guidance
+        - SecurityUpdates
+        - ServicePacks
+        - Tools
+        - UpdateRollups
+        - Updates
+#       state: searched 
+# log_path=c:/ansible_wu.txt
+        
+     register: check_win_updates 
+   - name: Check for Reboot
+     raw: shutdown.exe /r /t 10 /d p:2:3
+     when: check_win_updates.reboot_required !=false	
+   - debug: msg="{{check_win_updates}}"
+...
+

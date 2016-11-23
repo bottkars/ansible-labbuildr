@@ -1,0 +1,16 @@
+---
+
+- name: Maintainance Tesks on SCOM
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+   - name: Get SP version
+     win_updates: category_names=DefinitionUpdates state=searched log_path=c:/ansible_wu.txt
+        
+     register: check_win_updates 
+
+   - debug: msg="{{check_win_updates}}"
+...
+

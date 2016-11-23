@@ -1,0 +1,31 @@
+---
+
+- name: Update Maintainance Tasks Windows
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+   - name: Get All Updates
+     win_updates: 
+       category_names:
+        - Application
+        - Connectors
+        - CriticalUpdates
+        - DefinitionUpdates
+        - DeveloperKits
+        - FeaturePacks
+        - Guidance
+        - SecurityUpdates
+        - ServicePacks
+        - Tools
+        - UpdateRollups
+        - Updates
+       state: searched 
+# log_path=c:/ansible_wu.txt
+        
+     register: check_win_updates 
+
+   - debug: msg="{{check_win_updates.updates}}"
+...
+
